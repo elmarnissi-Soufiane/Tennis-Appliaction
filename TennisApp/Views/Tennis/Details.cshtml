@@ -1,0 +1,58 @@
+﻿@model TennisApp.Models.Rencontre
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Rencontre</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomGagnant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomGagnant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomPerdant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomPerdant)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NomTournoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomTournoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTournoi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTournoi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+    

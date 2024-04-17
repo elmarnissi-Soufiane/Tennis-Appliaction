@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "DetailsJR";
+}
+
+<h2>Comparaison de joueurs</h2>
+
+@using (Html.BeginForm("DetailsJR", "Joueur", FormMethod.Get))
+{
+    <div>
+        @Html.DropDownList("joueur1", ViewBag.Joueurs1 as SelectList)
+        vs.
+        @Html.DropDownList("joueur2", ViewBag.Joueurs2 as SelectList)
+        <input type="submit" value="Comparer" />
+    </div>
+}
+
+@if (Model != null && !string.IsNullOrEmpty(Model.Score1) && !string.IsNullOrEmpty(Model.Score2))
+{
+    <hr />
+    <h3>Résultats</h3>
+    <p>@Model.Joueur1 : @Model.Score1</p>
+    <p>@Model.Joueur2 : @Model.Score2</p>
+    if (@Model.Score1 > @Model.Score2)
+    {
+        <p>@Model.Joueur1 est meilleur que @Model.Joueur2</p>
+    }
+    else if (Model.Score1 < Model.Score2)
+    {
+        <p>@Model.Joueur2 est meilleur que @Model.Joueur1</p>
+    }
+    else
+    {
+        <p>Les deux joueurs ont un score égal</p>
+    }
+}

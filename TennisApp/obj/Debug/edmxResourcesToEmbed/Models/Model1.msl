@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TennisModelStoreContainer" CdmEntityContainer="db_TennisEntities">
+    <EntitySetMapping Name="Gains">
+      <EntityTypeMapping TypeName="TennisModel.Gain">
+        <MappingFragment StoreEntitySet="Gain">
+          <ScalarProperty Name="NomJoueur" ColumnName="NomJoueur" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="Prime" ColumnName="Prime" />
+          <ScalarProperty Name="NomSponsor" ColumnName="NomSponsor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Joueurs">
+      <EntityTypeMapping TypeName="TennisModel.Joueur">
+        <MappingFragment StoreEntitySet="Joueur">
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Nationalite" ColumnName="Nationalite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rencontres">
+      <EntityTypeMapping TypeName="TennisModel.Rencontre">
+        <MappingFragment StoreEntitySet="Rencontre">
+          <ScalarProperty Name="NomGagnant" ColumnName="NomGagnant" />
+          <ScalarProperty Name="NomPerdant" ColumnName="NomPerdant" />
+          <ScalarProperty Name="NomTournoi" ColumnName="NomTournoi" />
+          <ScalarProperty Name="DateTournoi" ColumnName="DateTournoi" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sponsors">
+      <EntityTypeMapping TypeName="TennisModel.Sponsor">
+        <MappingFragment StoreEntitySet="Sponsor">
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="ChiffreAffaires" ColumnName="ChiffreAffaires" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subventions">
+      <EntityTypeMapping TypeName="TennisModel.Subvention">
+        <MappingFragment StoreEntitySet="Subvention">
+          <ScalarProperty Name="NomTournoi" ColumnName="NomTournoi" />
+          <ScalarProperty Name="Annee" ColumnName="Annee" />
+          <ScalarProperty Name="NomSponsor" ColumnName="NomSponsor" />
+          <ScalarProperty Name="Montant" ColumnName="Montant" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tournois">
+      <EntityTypeMapping TypeName="TennisModel.Tournoi">
+        <MappingFragment StoreEntitySet="Tournoi">
+          <ScalarProperty Name="NomTournoi" ColumnName="NomTournoi" />
+          <ScalarProperty Name="DateTournoi" ColumnName="DateTournoi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

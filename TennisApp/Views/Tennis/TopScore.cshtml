@@ -1,0 +1,37 @@
+﻿
+@model IEnumerable<TennisApp.Models.TopScoreViewModel>
+    
+@{
+    ViewBag.Title = "Top Score of Player";
+}
+
+<h2> The Top Player Score </h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom Gagnant</th>
+            <th>Prénom Gagnant</th>
+            <th>Nom Perdant</th>
+            <th>Prénom Perdant</th>
+            <th>Nom Tournoi</th>
+            <th>Date Tournoi</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rencontre in Model)
+        {
+            <tr>
+                <td>@rencontre.NomGagnant</td>
+                <td>@rencontre.PrenomGagnant</td>
+                <td>@rencontre.NomPerdant</td>
+                <td>@rencontre.PrenomPerdant</td>
+                <td>@rencontre.NomTournoi</td>
+                <td>@rencontre.DateTournoi.ToShortDateString()</td>
+                <td>@rencontre.Score</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

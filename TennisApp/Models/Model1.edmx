@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TennisModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gain">
+          <Key>
+            <PropertyRef Name="NomJoueur" />
+            <PropertyRef Name="Annee" />
+            <PropertyRef Name="NomSponsor" />
+          </Key>
+          <Property Name="NomJoueur" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Annee" Type="datetime" Nullable="false" />
+          <Property Name="Prime" Type="int" />
+          <Property Name="NomSponsor" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Joueur">
+          <Key>
+            <PropertyRef Name="Nom" />
+          </Key>
+          <Property Name="Nom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Prenom" Type="varchar" MaxLength="20" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Nationalite" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Rencontre">
+          <Key>
+            <PropertyRef Name="NomGagnant" />
+            <PropertyRef Name="NomPerdant" />
+            <PropertyRef Name="NomTournoi" />
+            <PropertyRef Name="DateTournoi" />
+          </Key>
+          <Property Name="NomGagnant" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NomPerdant" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NomTournoi" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DateTournoi" Type="datetime" Nullable="false" />
+          <Property Name="Score" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Sponsor">
+          <Key>
+            <PropertyRef Name="Nom" />
+          </Key>
+          <Property Name="Nom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Adresse" Type="varchar" MaxLength="20" />
+          <Property Name="ChiffreAffaires" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Subvention">
+          <Key>
+            <PropertyRef Name="NomTournoi" />
+            <PropertyRef Name="Annee" />
+            <PropertyRef Name="NomSponsor" />
+          </Key>
+          <Property Name="NomTournoi" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Annee" Type="datetime" Nullable="false" />
+          <Property Name="NomSponsor" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Montant" Type="int" />
+        </EntityType>
+        <EntityType Name="Tournoi">
+          <Key>
+            <PropertyRef Name="NomTournoi" />
+          </Key>
+          <Property Name="NomTournoi" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DateTournoi" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Gain__NomJoueur__1B0907CE">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Gain" Type="Self.Gain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Gain">
+              <PropertyRef Name="NomJoueur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gain__NomSponsor__1BFD2C07">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="1" />
+          <End Role="Gain" Type="Self.Gain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Gain">
+              <PropertyRef Name="NomSponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rencontre__NomGa__145C0A3F">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Rencontre" Type="Self.Rencontre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Rencontre">
+              <PropertyRef Name="NomGagnant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rencontre__NomPe__15502E78">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Rencontre" Type="Self.Rencontre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Rencontre">
+              <PropertyRef Name="NomPerdant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rencontre__NomTo__164452B1">
+          <End Role="Tournoi" Type="Self.Tournoi" Multiplicity="1" />
+          <End Role="Rencontre" Type="Self.Rencontre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournoi">
+              <PropertyRef Name="NomTournoi" />
+            </Principal>
+            <Dependent Role="Rencontre">
+              <PropertyRef Name="NomTournoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subventio__NomSp__1FCDBCEB">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="1" />
+          <End Role="Subvention" Type="Self.Subvention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Subvention">
+              <PropertyRef Name="NomSponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subventio__NomTo__1ED998B2">
+          <End Role="Tournoi" Type="Self.Tournoi" Multiplicity="1" />
+          <End Role="Subvention" Type="Self.Subvention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournoi">
+              <PropertyRef Name="NomTournoi" />
+            </Principal>
+            <Dependent Role="Subvention">
+              <PropertyRef Name="NomTournoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TennisModelStoreContainer">
+          <EntitySet Name="Gain" EntityType="Self.Gain" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Joueur" EntityType="Self.Joueur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rencontre" EntityType="Self.Rencontre" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sponsor" EntityType="Self.Sponsor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subvention" EntityType="Self.Subvention" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tournoi" EntityType="Self.Tournoi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Gain__NomJoueur__1B0907CE" Association="Self.FK__Gain__NomJoueur__1B0907CE">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Gain" EntitySet="Gain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gain__NomSponsor__1BFD2C07" Association="Self.FK__Gain__NomSponsor__1BFD2C07">
+            <End Role="Sponsor" EntitySet="Sponsor" />
+            <End Role="Gain" EntitySet="Gain" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rencontre__NomGa__145C0A3F" Association="Self.FK__Rencontre__NomGa__145C0A3F">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Rencontre" EntitySet="Rencontre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rencontre__NomPe__15502E78" Association="Self.FK__Rencontre__NomPe__15502E78">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Rencontre" EntitySet="Rencontre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rencontre__NomTo__164452B1" Association="Self.FK__Rencontre__NomTo__164452B1">
+            <End Role="Tournoi" EntitySet="Tournoi" />
+            <End Role="Rencontre" EntitySet="Rencontre" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subventio__NomSp__1FCDBCEB" Association="Self.FK__Subventio__NomSp__1FCDBCEB">
+            <End Role="Sponsor" EntitySet="Sponsor" />
+            <End Role="Subvention" EntitySet="Subvention" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subventio__NomTo__1ED998B2" Association="Self.FK__Subventio__NomTo__1ED998B2">
+            <End Role="Tournoi" EntitySet="Tournoi" />
+            <End Role="Subvention" EntitySet="Subvention" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TennisModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gain">
+          <Key>
+            <PropertyRef Name="NomJoueur" />
+            <PropertyRef Name="Annee" />
+            <PropertyRef Name="NomSponsor" />
+          </Key>
+          <Property Name="NomJoueur" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Annee" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Prime" Type="Int32" />
+          <Property Name="NomSponsor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Joueur" Relationship="Self.FK__Gain__NomJoueur__1B0907CE" FromRole="Gain" ToRole="Joueur" />
+          <NavigationProperty Name="Sponsor" Relationship="Self.FK__Gain__NomSponsor__1BFD2C07" FromRole="Gain" ToRole="Sponsor" />
+        </EntityType>
+        <EntityType Name="Joueur">
+          <Key>
+            <PropertyRef Name="Nom" />
+          </Key>
+          <Property Name="Nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prenom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Nationalite" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gains" Relationship="Self.FK__Gain__NomJoueur__1B0907CE" FromRole="Joueur" ToRole="Gain" />
+          <NavigationProperty Name="Rencontres" Relationship="Self.FK__Rencontre__NomGa__145C0A3F" FromRole="Joueur" ToRole="Rencontre" />
+          <NavigationProperty Name="Rencontres1" Relationship="Self.FK__Rencontre__NomPe__15502E78" FromRole="Joueur" ToRole="Rencontre" />
+        </EntityType>
+        <EntityType Name="Rencontre">
+          <Key>
+            <PropertyRef Name="NomGagnant" />
+            <PropertyRef Name="NomPerdant" />
+            <PropertyRef Name="NomTournoi" />
+            <PropertyRef Name="DateTournoi" />
+          </Key>
+          <Property Name="NomGagnant" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomPerdant" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomTournoi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateTournoi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Score" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Joueur" Relationship="Self.FK__Rencontre__NomGa__145C0A3F" FromRole="Rencontre" ToRole="Joueur" />
+          <NavigationProperty Name="Joueur1" Relationship="Self.FK__Rencontre__NomPe__15502E78" FromRole="Rencontre" ToRole="Joueur" />
+          <NavigationProperty Name="Tournoi" Relationship="Self.FK__Rencontre__NomTo__164452B1" FromRole="Rencontre" ToRole="Tournoi" />
+        </EntityType>
+        <EntityType Name="Sponsor">
+          <Key>
+            <PropertyRef Name="Nom" />
+          </Key>
+          <Property Name="Nom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ChiffreAffaires" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gains" Relationship="Self.FK__Gain__NomSponsor__1BFD2C07" FromRole="Sponsor" ToRole="Gain" />
+          <NavigationProperty Name="Subventions" Relationship="Self.FK__Subventio__NomSp__1FCDBCEB" FromRole="Sponsor" ToRole="Subvention" />
+        </EntityType>
+        <EntityType Name="Subvention">
+          <Key>
+            <PropertyRef Name="NomTournoi" />
+            <PropertyRef Name="Annee" />
+            <PropertyRef Name="NomSponsor" />
+          </Key>
+          <Property Name="NomTournoi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Annee" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NomSponsor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Montant" Type="Int32" />
+          <NavigationProperty Name="Sponsor" Relationship="Self.FK__Subventio__NomSp__1FCDBCEB" FromRole="Subvention" ToRole="Sponsor" />
+          <NavigationProperty Name="Tournoi" Relationship="Self.FK__Subventio__NomTo__1ED998B2" FromRole="Subvention" ToRole="Tournoi" />
+        </EntityType>
+        <EntityType Name="Tournoi">
+          <Key>
+            <PropertyRef Name="NomTournoi" />
+          </Key>
+          <Property Name="NomTournoi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateTournoi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Rencontres" Relationship="Self.FK__Rencontre__NomTo__164452B1" FromRole="Tournoi" ToRole="Rencontre" />
+          <NavigationProperty Name="Subventions" Relationship="Self.FK__Subventio__NomTo__1ED998B2" FromRole="Tournoi" ToRole="Subvention" />
+        </EntityType>
+        <Association Name="FK__Gain__NomJoueur__1B0907CE">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Gain" Type="Self.Gain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Gain">
+              <PropertyRef Name="NomJoueur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Gain__NomSponsor__1BFD2C07">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="1" />
+          <End Role="Gain" Type="Self.Gain" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Gain">
+              <PropertyRef Name="NomSponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rencontre__NomGa__145C0A3F">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Rencontre" Type="Self.Rencontre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Rencontre">
+              <PropertyRef Name="NomGagnant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rencontre__NomPe__15502E78">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Rencontre" Type="Self.Rencontre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Rencontre">
+              <PropertyRef Name="NomPerdant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rencontre__NomTo__164452B1">
+          <End Role="Tournoi" Type="Self.Tournoi" Multiplicity="1" />
+          <End Role="Rencontre" Type="Self.Rencontre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournoi">
+              <PropertyRef Name="NomTournoi" />
+            </Principal>
+            <Dependent Role="Rencontre">
+              <PropertyRef Name="NomTournoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subventio__NomSp__1FCDBCEB">
+          <End Role="Sponsor" Type="Self.Sponsor" Multiplicity="1" />
+          <End Role="Subvention" Type="Self.Subvention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsor">
+              <PropertyRef Name="Nom" />
+            </Principal>
+            <Dependent Role="Subvention">
+              <PropertyRef Name="NomSponsor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subventio__NomTo__1ED998B2">
+          <End Role="Tournoi" Type="Self.Tournoi" Multiplicity="1" />
+          <End Role="Subvention" Type="Self.Subvention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tournoi">
+              <PropertyRef Name="NomTournoi" />
+            </Principal>
+            <Dependent Role="Subvention">
+              <PropertyRef Name="NomTournoi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_TennisEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gains" EntityType="Self.Gain" />
+          <EntitySet Name="Joueurs" EntityType="Self.Joueur" />
+          <EntitySet Name="Rencontres" EntityType="Self.Rencontre" />
+          <EntitySet Name="Sponsors" EntityType="Self.Sponsor" />
+          <EntitySet Name="Subventions" EntityType="Self.Subvention" />
+          <EntitySet Name="Tournois" EntityType="Self.Tournoi" />
+          <AssociationSet Name="FK__Gain__NomJoueur__1B0907CE" Association="Self.FK__Gain__NomJoueur__1B0907CE">
+            <End Role="Joueur" EntitySet="Joueurs" />
+            <End Role="Gain" EntitySet="Gains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Gain__NomSponsor__1BFD2C07" Association="Self.FK__Gain__NomSponsor__1BFD2C07">
+            <End Role="Sponsor" EntitySet="Sponsors" />
+            <End Role="Gain" EntitySet="Gains" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rencontre__NomGa__145C0A3F" Association="Self.FK__Rencontre__NomGa__145C0A3F">
+            <End Role="Joueur" EntitySet="Joueurs" />
+            <End Role="Rencontre" EntitySet="Rencontres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rencontre__NomPe__15502E78" Association="Self.FK__Rencontre__NomPe__15502E78">
+            <End Role="Joueur" EntitySet="Joueurs" />
+            <End Role="Rencontre" EntitySet="Rencontres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rencontre__NomTo__164452B1" Association="Self.FK__Rencontre__NomTo__164452B1">
+            <End Role="Tournoi" EntitySet="Tournois" />
+            <End Role="Rencontre" EntitySet="Rencontres" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subventio__NomSp__1FCDBCEB" Association="Self.FK__Subventio__NomSp__1FCDBCEB">
+            <End Role="Sponsor" EntitySet="Sponsors" />
+            <End Role="Subvention" EntitySet="Subventions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subventio__NomTo__1ED998B2" Association="Self.FK__Subventio__NomTo__1ED998B2">
+            <End Role="Tournoi" EntitySet="Tournois" />
+            <End Role="Subvention" EntitySet="Subventions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TennisModelStoreContainer" CdmEntityContainer="db_TennisEntities">
+          <EntitySetMapping Name="Gains">
+            <EntityTypeMapping TypeName="TennisModel.Gain">
+              <MappingFragment StoreEntitySet="Gain">
+                <ScalarProperty Name="NomJoueur" ColumnName="NomJoueur" />
+                <ScalarProperty Name="Annee" ColumnName="Annee" />
+                <ScalarProperty Name="Prime" ColumnName="Prime" />
+                <ScalarProperty Name="NomSponsor" ColumnName="NomSponsor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Joueurs">
+            <EntityTypeMapping TypeName="TennisModel.Joueur">
+              <MappingFragment StoreEntitySet="Joueur">
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Nationalite" ColumnName="Nationalite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rencontres">
+            <EntityTypeMapping TypeName="TennisModel.Rencontre">
+              <MappingFragment StoreEntitySet="Rencontre">
+                <ScalarProperty Name="NomGagnant" ColumnName="NomGagnant" />
+                <ScalarProperty Name="NomPerdant" ColumnName="NomPerdant" />
+                <ScalarProperty Name="NomTournoi" ColumnName="NomTournoi" />
+                <ScalarProperty Name="DateTournoi" ColumnName="DateTournoi" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sponsors">
+            <EntityTypeMapping TypeName="TennisModel.Sponsor">
+              <MappingFragment StoreEntitySet="Sponsor">
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="ChiffreAffaires" ColumnName="ChiffreAffaires" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subventions">
+            <EntityTypeMapping TypeName="TennisModel.Subvention">
+              <MappingFragment StoreEntitySet="Subvention">
+                <ScalarProperty Name="NomTournoi" ColumnName="NomTournoi" />
+                <ScalarProperty Name="Annee" ColumnName="Annee" />
+                <ScalarProperty Name="NomSponsor" ColumnName="NomSponsor" />
+                <ScalarProperty Name="Montant" ColumnName="Montant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tournois">
+            <EntityTypeMapping TypeName="TennisModel.Tournoi">
+              <MappingFragment StoreEntitySet="Tournoi">
+                <ScalarProperty Name="NomTournoi" ColumnName="NomTournoi" />
+                <ScalarProperty Name="DateTournoi" ColumnName="DateTournoi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

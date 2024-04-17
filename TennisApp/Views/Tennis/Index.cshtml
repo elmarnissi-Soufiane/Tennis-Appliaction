@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TennisApp.Models.Rencontre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Rencontre Joueur</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomGagnant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomPerdant)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NomTournoi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTournoi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Score)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomGagnant)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomPerdant)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NomTournoi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTournoi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Score)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { nomGagnant = item.NomGagnant, nomPerdant = item.NomPerdant, nomTournoi = item.NomTournoi, dateTournoi = item.DateTournoi })
+            @Html.ActionLink("Top Player Score", "TopScore", "Tennis", new {nom = item.NomPerdant})
+        </td>
+    </tr>
+}
+
+</table>
